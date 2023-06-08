@@ -45,6 +45,7 @@ class CentralBLE
     void print(int ID, char *message);
     int available(int ID);
     char read(int ID);
+    String readStringUntil(int ID, char terminator);
 
     bool isOpen(int device);
 };

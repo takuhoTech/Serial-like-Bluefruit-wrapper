@@ -192,6 +192,26 @@ char CentralBLE::read(int ID)
   //return FIFO[ID].dequeue();
 }
 
+String CentralBLE::readStringUntil(int ID, char terminator)
+{
+  String str = "";
+  while (1) {
+    while (Peripheral[ID].FIFO.size() > 0)
+    {
+      char tmp = Peripheral[ID].FIFO.front();
+      Peripheral[ID].FIFO.pop();
+      if (tmp == terminator)
+      {
+        return str;
+      }
+      str += String(tmp);
+      //delay(50);
+    }
+    delay(1);
+  }
+  return "error";
+}
+
 bool CentralBLE::isOpen(int device)
 {
   if (Peripheral[device].ID != 255)
